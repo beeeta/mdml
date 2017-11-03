@@ -39,9 +39,10 @@ def do_conv_file(inputfile,outputdir,code='utf8'):
     index = inputname.index('.md')
     if index:
         outputfile = os.path.join(outputdir,inputname[:index]+'.html')
-        if not os.path.exists(outputfile):
-            os.makedirs(os.path.dirname(outputfile))
-            os.mknod(outputfile)
+        outputdir = os.path.dirname(outputfile)
+        if not os.path.exists(outputdir):
+            os.makedirs(outputdir)
+        open(outputfile,'w').close()
         md.convertFile(inputfile,outputfile,code)
     else:
         shutil.copy(inputfile,os.path.join(outputdir,inputname))
